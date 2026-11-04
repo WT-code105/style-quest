@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#141820">
+<title>STYLE QUEST 3D｜真人比例虛擬穿搭</title>
+<style>
+:root{--bg:#f6f3ee;--ink:#22232a;--muted:#86868e;--line:#e8e3df;--accent:#a6535c;--gold:#c9a36d;--dark:#222632}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #bb7586;outline-offset:3px}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(18px,3vw,46px);background:#fff;border-bottom:1px solid var(--line)}.brand{font-size:21px;letter-spacing:.08em;font-weight:900}.brand span{font-weight:450;letter-spacing:.16em;color:var(--accent);font-size:10px;display:block;margin-top:4px}.tag{font-size:12px;background:#f5e8e9;color:#964851;border-radius:30px;padding:8px 13px;font-weight:750}
+main{display:grid;grid-template-columns:minmax(300px,1.12fr) minmax(310px,.95fr) minmax(270px,.75fr);max-width:1550px;margin:auto;min-height:calc(100vh - 78px)}
+.stage{position:relative;background:radial-gradient(ellipse at 48% 32%,#fff 0%,#ece6df 68%,#dad4ce 115%);min-height:760px;overflow:hidden;border-right:1px solid #e3ded8}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}#scene:active{cursor:grabbing}
+.stage-label{position:absolute;top:26px;left:28px;pointer-events:none}.overline{font-size:11px;letter-spacing:.23em;font-weight:850;color:#b78b73}.stage-label h1{font-size:clamp(23px,2.2vw,36px);margin:10px 0 6px;line-height:1.17}.stage-label p{margin:0;color:#807b76;font-size:13px;line-height:1.8}
+.badge3d{position:absolute;right:20px;top:24px;background:#fff9;border:1px solid #fff;border-radius:50px;padding:8px 13px;font-size:11px;font-weight:800;backdrop-filter:blur(9px)}
+.camera{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:7px;padding:7px;background:#fffffff0;border:1px solid #fff;border-radius:50px;box-shadow:0 10px 34px #44342117}.camera button{border:0;background:transparent;border-radius:30px;padding:9px 12px;font-size:12px;font-weight:750;white-space:nowrap}.camera button:hover,.camera button.active{background:var(--dark);color:white}.loading{position:absolute;inset:0;background:#f0ece7ed;display:grid;place-items:center;text-align:center;z-index:5;padding:30px;color:#625850}.loading.hidden{display:none}.loading strong{font-size:20px}.loading small{display:block;margin-top:10px}
+.shop{padding:32px clamp(18px,2.5vw,35px);background:#fff;border-right:1px solid var(--line);overflow:visible}.section-title{font-size:23px;letter-spacing:-.03em;margin:4px 0 10px}.sub{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 23px}.categories{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;padding-bottom:12px;margin-bottom:14px}.categories button{flex:none;background:#f7f6f5;border:1px solid #efedeb;border-radius:22px;padding:9px 14px;font-size:12px;color:#666;white-space:nowrap}.categories button.active{background:var(--dark);border-color:var(--dark);color:white}.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product{border:1px solid var(--line);border-radius:17px;background:#fff;overflow:hidden;text-align:left;padding:0;transition:.18s;position:relative}.product:hover{border-color:#d1aaac;transform:translateY(-2px)}.product.selected{border:2px solid var(--accent)}.swatch{height:115px;display:grid;place-items:center;background:#f7f5f3}.swatch svg{width:80px;height:87px;filter:drop-shadow(0 7px 6px #3332)}.prod-body{padding:11px 12px 15px}.prod-name{font-weight:800;font-size:13px}.prod-meta{font-size:11px;color:#949096;margin-top:5px}.prod-price{font-weight:850;font-size:14px;margin-top:8px}.selected-mark{position:absolute;top:9px;right:9px;background:var(--accent);color:white;border-radius:30px;font-weight:900;padding:5px 8px;font-size:10px}
+.side{padding:30px 24px 34px;background:#fcfaf7;display:flex;flex-direction:column;gap:18px}.panel{background:white;border:1px solid #eae4df;border-radius:21px;padding:21px;box-shadow:0 6px 28px #2b252309}.panel h2{font-size:17px;margin:0 0 8px}.hint{font-size:12px;line-height:1.7;color:#8b8784;margin:0 0 15px}.progress{display:flex;gap:5px;margin:16px 0}.dot{height:7px;border-radius:8px;background:#eae5e1;flex:1}.dot.on{background:var(--accent)}.line{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px}.line strong{font-weight:850}.discount{color:#a04d56}.divider{height:1px;background:#eee8e3;margin:12px 0}.total{display:flex;justify-content:space-between;align-items:end;gap:10px}.total strong{font-size:26px;color:#993f4d}.list{font-size:12px;color:#7b7774;min-height:20px;line-height:1.9}.cta{width:100%;border:0;background:var(--dark);color:#fff;padding:13px;border-radius:12px;font-size:13px;font-weight:750;margin-top:13px}.cta:hover{background:#3e4350}.cta.secondary{background:#f6e9ea;color:#884b53}.game{background:linear-gradient(135deg,#fff 0%,#fff7f2 100%);border-color:#f1e2d8}.game-icon{font-size:26px}.game-result{font-size:12px;min-height:18px;color:#86505a;margin-top:10px;line-height:1.65}.answer-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:11px}.answer-buttons button{border:1px solid #eadfdc;background:white;border-radius:11px;padding:11px 6px;font-weight:750;font-size:12px}.answer-buttons button:hover{border-color:var(--accent)}.footer{font-size:11px;line-height:1.8;color:#918e8d}.footer a{color:var(--accent)}.empty{grid-column:1/-1;color:#888;font-size:13px;padding:30px;text-align:center}
+@media(max-width:1150px){main{grid-template-columns:minmax(300px,1fr) minmax(330px,1fr)}.stage{min-height:740px}.side{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:start}.side .footer{grid-column:1/-1}}
+@media(max-width:700px){header{height:67px}.brand{font-size:17px}.tag{font-size:10px}main{display:block}.stage{min-height:590px;height:70vh;max-height:760px;border-right:0}.stage-label{left:17px;top:17px}.stage-label h1{font-size:24px}.stage-label p{font-size:11px}.badge3d{right:12px;top:16px}.camera{bottom:16px}.shop{padding:27px 18px}.side{display:flex;padding:20px 18px}.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.product{transition:none}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"}}</script>
+</head>
+<body>
+<header><div class="brand">STYLE QUEST <span>3D VIRTUAL FITTING STUDIO</span></div><span class="tag">3D BETA · 免費試玩</span></header>
+<main>
+<section class="stage" aria-label="3D 立體模特兒">
+ <canvas id="scene"></canvas>
+ <div id="loading" class="loading"><div><strong>正在建立 3D 模特兒</strong><small>首次載入需要網路連線</small></div></div>
+ <div class="stage-label"><div class="overline">YOUR STYLE · YOUR RULES</div><h1>今天穿什麼？</h1><p>拖曳旋轉模特兒 · 滾輪或雙指縮放<br>點選服裝，即時預覽全身穿搭</p></div>
+ <span class="badge3d">● 360° 立體預覽</span>
+ <div class="camera" aria-label="鏡頭操作"><button id="front" class="active">正面</button><button id="sideview">側面</button><button id="back">背面</button><button id="reset">重設視角</button></div>
+</section>
+<section class="shop">
+ <div class="overline">01 · BUILD YOUR OUTFIT</div><h2 class="section-title">挑選你的穿搭</h2><p class="sub">每個分類最多選一件（配件除外）。點選已選取的商品即可取消，價格同步更新。</p>
+ <div class="categories" id="tabs" role="tablist" aria-label="商品分類"></div>
+ <div class="products" id="products"></div>
+</section>
+<aside class="side">
+ <div class="panel">
+  <div class="overline">02 · COMBO REWARDS</div><h2>我的穿搭清單</h2><p class="hint">2 件 95 折 · 3 件 9 折 · 4 件以上 85 折</p>
+  <div class="progress" id="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <div class="list" id="cartList">尚未選擇商品</div><div class="divider"></div>
+  <div class="line"><span>原價</span><strong id="subtotal">NT$0</strong></div>
+  <div class="line discount"><span id="discountLabel">組合優惠</span><strong id="discount">－NT$0</strong></div>
+  <div class="line discount"><span>遊戲獎勵</span><strong id="reward">－NT$0</strong></div><div class="divider"></div>
+  <div class="total"><span>優惠後總價</span><strong id="total">NT$0</strong></div>
+  <button class="cta" id="copy">複製穿搭清單與價格</button><button class="cta secondary" id="clear">清空穿搭</button>
+ </div>
+ <div class="panel game">
+  <div class="overline">03 · MINI GAME</div><h2><span class="game-icon">🎯</span> 猜猜這件多少錢？</h2>
+  <p class="hint">猜對 1 次獲得 NT$50 試玩折抵；需選滿 2 件才能使用。每次重新整理可再玩。</p>
+  <div id="question" style="font-weight:800;font-size:14px">載入題目中…</div>
+  <div class="answer-buttons" id="answers"></div><div class="game-result" id="gameResult" aria-live="polite"></div>
+ </div>
+ <div class="footer">示範商品與價格，非正式銷售或結帳頁面。人物是程式建構的真人比例 3D 模特兒，並非照片級人體掃描；服裝是 3D 示意版型，不代表真實試穿尺寸。網站透過 Three.js CDN 載入渲染程式，需網路連線。<br><a href="../">返回原本 2D 版本</a></div>
+</aside>
+</main>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+const $=id=>document.getElementById(id),fmt=n=>'NT$'+Math.round(n).toLocaleString('zh-TW');
+const products=[
+{id:'t1',cat:'top',name:'雲朵短袖上衣',price:690,color:'#f4e6d7',type:'tee',meta:'奶油白'},
+{id:'t2',cat:'top',name:'細肩帶背心',price:590,color:'#c8aba8',type:'tank',meta:'玫瑰灰'},
+{id:'t3',cat:'top',name:'針織合身上衣',price:890,color:'#8e9b8c',type:'long',meta:'鼠尾草綠'},
+{id:'b1',cat:'bottom',name:'直筒丹寧褲',price:1190,color:'#57718e',type:'jeans',meta:'復古丹寧'},
+{id:'b2',cat:'bottom',name:'百褶短裙',price:890,color:'#6b5554',type:'skirt',meta:'可可棕'},
+{id:'b3',cat:'bottom',name:'寬版長褲',price:1090,color:'#ddd2c3',type:'wide',meta:'燕麥奶'},
+{id:'o1',cat:'outer',name:'輕薄短版外套',price:1490,color:'#a77e75',type:'jacket',meta:'乾燥玫瑰'},
+{id:'o2',cat:'outer',name:'長版風衣',price:1990,color:'#c0a788',type:'coat',meta:'卡其'},
+{id:'s1',cat:'shoes',name:'簡約小白鞋',price:1290,color:'#f4f0e8',type:'sneaker',meta:'象牙白'},
+{id:'s2',cat:'shoes',name:'都會短靴',price:1590,color:'#4d3932',type:'boot',meta:'咖啡棕'},
+{id:'a1',cat:'accessory',name:'迷你側背包',price:790,color:'#9b6359',type:'bag',meta:'磚紅'},
+{id:'a2',cat:'accessory',name:'極簡肩背包',price:990,color:'#262d34',type:'tote',meta:'黑色'},
+{id:'a3',cat:'accessory',name:'金色耳環',price:390,color:'#c4a56c',type:'earrings',meta:'霧金'}
+];
+const tabs=[['all','全部'],['top','上衣'],['bottom','下身'],['outer','外套'],['shoes','鞋款'],['accessory','配件']];
+let active='all',chosen={},won=false,played=false;
+const scene=new THREE.Scene(),canvas=$('scene');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.4;
+const camera=new THREE.PerspectiveCamera(33,1,.1,100);camera.position.set(0,2.5,8.8);
+const controls=new OrbitControls(camera,canvas);controls.target.set(0,1.89,0);controls.enableDamping=true;controls.dampingFactor=.075;controls.minDistance=4;controls.maxDistance=12;controls.minPolarAngle=.22;controls.maxPolarAngle=Math.PI-.2;controls.enablePan=false;controls.update();
+scene.add(new THREE.HemisphereLight(0xffffff,0xb4a49b,2.2));
+const key=new THREE.DirectionalLight(0xfff7ed,3.3);key.position.set(-3,8,5);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.camera.left=-4;key.shadow.camera.right=4;key.shadow.camera.top=6;key.shadow.camera.bottom=-3;scene.add(key);
+const rim=new THREE.DirectionalLight(0xe3e7ff,1.5);rim.position.set(3,5,-4);scene.add(rim);
+const mat=(color,roughness=.8,metalness=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,side:THREE.DoubleSide});
+const skin=mat('#c78d70'),skinLight=mat('#db9f80'),hair=mat('#34251f'),eye=mat('#27272c'),lip=mat('#9d5c59'),sole=mat('#d4c9bd'),underwear=mat('#e2d2c2');
+const root=new THREE.Group();scene.add(root);
+function mesh(parent,geometry,material,x=0,y=0,z=0){const o=new THREE.Mesh(geometry,material);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+function ball(g,m,x,y,z,sx,sy,sz){const o=mesh(g,new THREE.SphereGeometry(1,24,16),m,x,y,z);o.scale.set(sx,sy,sz);return o}
+function cyl(g,m,x,y,z,rt,rb,h,rotZ=0){const o=mesh(g,new THREE.CylinderGeometry(rt,rb,h,24,1),m,x,y,z);o.rotation.z=rotZ;return o}
+function limb(g,m,a,b,r1,r2){const p=new THREE.Vector3(...a),q=new THREE.Vector3(...b);const d=q.clone().sub(p);const o=mesh(g,new THREE.CylinderGeometry(r1,r2,d.length(),18),m,...p.clone().add(q).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.clone().normalize());return o}
+function tapered(g,m,top,bottom,yt,yb,z=0,depth=.17){const verts=[],inds=[],segments=32;for(let i=0;i<=segments;i++){let a=i/segments*Math.PI*2;let c=Math.cos(a),s=Math.sin(a);verts.push(c*top,yt,s*depth+z,c*bottom,yb,s*(depth+0.02)+z)}for(let i=0;i<segments;i++){let n=2*i;inds.push(n,n+1,n+2,n+1,n+3,n+2)}const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));geo.setIndex(inds);geo.computeVertexNormals();return mesh(g,geo,m)}
+// Figure: 3.70 units tall, approximately 7.5-head body proportions.
+const body=new THREE.Group();root.add(body);
+ball(body,skin,.0,2.61,0,.315,.40,.195);
+ball(body,skin,0,2.28,0,.19,.18,.15);
+ball(body,skin,0,2.04,0,.215,.28,.17);
+cyl(body,skin,0,2.89,0,.095,.103,.17);
+ball(body,skin,0,3.18,.005,.205,.282,.188);
+ball(body,skinLight,0,3.07,.145,.12,.125,.077);
+ball(body,lip,0,3.065,.192,.053,.014,.012);
+ball(body,eye,-.085,3.206,.176,.023,.017,.011);ball(body,eye,.085,3.206,.176,.023,.017,.011);
+ball(body,skin,0,3.154,.192,.037,.071,.07);
+ball(body,hair,0,3.38,-.035,.22,.12,.19);
+ball(body,hair,0,3.27,-.153,.23,.28,.10);
+ball(body,hair,-.205,3.12,-.07,.09,.23,.11);
+ball(body,hair,.205,3.12,-.07,.09,.23,.11);
+for(const s of [-1,1]){
+ ball(body,skin,s*.214,2.81,0,.12,.12,.11);
+ limb(body,skin,[s*.28,2.78,0],[s*.34,2.27,.02],.09,.072);
+ ball(body,skin,s*.34,2.26,.02,.075,.085,.07);
+ limb(body,skin,[s*.34,2.25,.02],[s*.33,1.81,.13],.072,.055);
+ ball(body,skin,s*.33,1.78,.13,.066,.135,.042);
+ ball(body,skin,s*.122,1.93,0,.15,.12,.15);
+ limb(body,skin,[s*.125,1.96,0],[s*.142,1.08,.012],.145,.104);
+ ball(body,skin,s*.14,1.11,.012,.11,.14,.12);
+ limb(body,skin,[s*.145,1.11,.015],[s*.14,.25,0],.107,.071);
+ ball(body,skin,s*.14,.245,0,.077,.075,.085);
+ ball(body,skin,s*.14,.085,.13,.118,.085,.235);
+}
+const floor=mesh(scene,new THREE.CircleGeometry(2.0,64),mat('#c3b4a7',.98),0,-.022,0);floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;floor.castShadow=false;
+const shadow=mesh(scene,new THREE.CircleGeometry(.83,48),new THREE.MeshBasicMaterial({color:0x4d433d,transparent:true,opacity:.09,depthWrite:false}),0,-.012,0);shadow.rotation.x=-Math.PI/2;shadow.castShadow=false;
+const outfits=new THREE.Group();root.add(outfits);
+function createTop(p,g){
+ const m=mat(p.color,.87);const long=p.type==='long',tank=p.type==='tank';
+ tapered(g,m,.205,.198,2.84,2.32,0,.185);
+ ball(g,m,0,2.56,0,.267,.30,.192);
+ // cover neck cutaway with visible neckline
+ if(!tank){for(const s of [-1,1]){
+  limb(g,m,[s*.27,2.79,0],[s*.325,long?2.17:2.53,.005],long?.112:.12,long?.085:.095);
+ }}else{for(const s of [-1,1])limb(g,m,[s*.17,2.82,0],[s*.18,2.73,0],.025,.025)}
+ if(p.type==='tee')ball(g,m,0,2.35,0,.23,.075,.175);
+}
+function createBottom(p,g){
+ const m=mat(p.color,.9);
+ if(p.type==='skirt'){const skirt=mesh(g,new THREE.CylinderGeometry(.22,.44,.65,36,1),m,0,1.78,0);skirt.scale.z=.73;
+ for(let i=0;i<14;i++){const a=i/14*Math.PI*2;const crease=mat(new THREE.Color(p.color).multiplyScalar(.86),.9);let o=mesh(g,new THREE.BoxGeometry(.012,.58,.01),crease,Math.cos(a)*.31,1.72,Math.sin(a)*.22);o.rotation.y=-a}
+ }else{ball(g,m,0,2.03,0,.232,.155,.17);for(const s of [-1,1]){
+  const wide=p.type==='wide',rad=wide?.175:.135;
+  limb(g,m,[s*.128,1.97,0],[s*.14,1.08,.012],rad,wide?.17:.105);
+  limb(g,m,[s*.14,1.06,0],[s*.14,.27,0],wide?.17:.107,wide?.165:.075);
+  if(!wide){const seam=mat('#8ca0b3');ball(g,seam,s*.14,.29,.093,.033,.02,.01)}
+ }}
+}
+function createOuter(p,g){
+ const m=mat(p.color,.87),coat=p.type==='coat';
+ for(const s of [-1,1]){
+  limb(g,m,[s*.29,2.79,.015],[s*.34,2.16,.025],.145,.105);
+  // separated front panels reveal inside top
+  const panel=mesh(g,new THREE.BoxGeometry(.18,coat?1.28:.59,.085),m,s*.145,coat?2.19:2.57,.183);
+  panel.rotation.z=-s*.055;
+ }
+ const collar=mat(new THREE.Color(p.color).multiplyScalar(.93));
+ for(const s of [-1,1]){let l=mesh(g,new THREE.BoxGeometry(.095,.24,.09),collar,s*.135,2.81,.205);l.rotation.z=s*.42}
+ if(coat){let back=mesh(g,new THREE.BoxGeometry(.45,1.35,.075),m,0,2.16,-.22);back.rotation.x=.03}
+}
+function createShoes(p,g){const m=mat(p.color,.57);for(const s of [-1,1]){
+ ball(g,m,s*.14,p.type==='boot'?.21:.09,.135,p.type==='boot'?.13:.14,p.type==='boot'?.23:.095,.25);
+ ball(g,sole,s*.14,.045,.15,.143,.032,.24);
+}}
+function createAccessory(p,g){
+ if(p.type==='earrings'){const m=mat(p.color,.33,.7);for(const s of [-1,1]){const o=mesh(g,new THREE.TorusGeometry(.038,.012,9,20),m,s*.21,3.11,.03);o.rotation.y=.12*s}}
+ else{const m=mat(p.color,.64);ball(g,m,p.type==='bag'?.39:.4,p.type==='bag'?1.63:1.68,.22,p.type==='bag'?.22:.25,p.type==='bag'?.19:.24,.11);
+ const strap=mesh(g,new THREE.TorusGeometry(.32,.018,8,42,Math.PI),m,.21,2.13,.19);strap.rotation.z=-.25;strap.rotation.y=Math.PI;
+ }}
+function redrawOutfit(){
+ while(outfits.children.length){const x=outfits.children[0];outfits.remove(x);x.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material&&o.material!==skin&&o.material!==hair)o.material.dispose()})}
+ for(const p of Object.values(chosen)){const g=new THREE.Group();outfits.add(g);
+ if(p.cat==='top')createTop(p,g);else if(p.cat==='bottom')createBottom(p,g);else if(p.cat==='outer')createOuter(p,g);else if(p.cat==='shoes')createShoes(p,g);else createAccessory(p,g);
+ }
+}
+function iconSVG(p){
+ const c=p.color,stroke='#493e3d';
+ if(p.cat==='shoes')return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M17 46L41 47L50 62Q63 70 82 73L88 83Q77 91 24 86L12 79Z" fill="'+c+'" stroke="'+stroke+'" stroke-width="2"/><path d="M14 79Q52 86 88 83" stroke="#aaa" stroke-width="5" fill="none"/></svg>';
+ if(p.cat==='accessory')return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="19" y="38" width="62" height="48" rx="12" fill="'+c+'" stroke="'+stroke+'" stroke-width="2"/><path d="M37 43C31 8 71 8 64 43" stroke="'+c+'" stroke-width="8" fill="none"/></svg>';
+ if(p.cat==='bottom'&&p.type==='skirt')return '<svg viewBox="0 0 100 100"><path d="M34 20H67L84 86H17Z" fill="'+c+'" stroke="'+stroke+'" stroke-width="2"/></svg>';
+ if(p.cat==='bottom')return '<svg viewBox="0 0 100 100"><path d="M27 14H73L78 85H55L50 44L44 85H22Z" fill="'+c+'" stroke="'+stroke+'" stroke-width="2"/></svg>';
+ return '<svg viewBox="0 0 100 100"><path d="M32 17L16 29L5 50L24 59L30 47L30 85H72L72 47L79 59L95 50L82 29L66 17L56 25H43Z" fill="'+c+'" stroke="'+stroke+'" stroke-width="2"/><path d="M43 17Q51 32 59 17" stroke="'+stroke+'" fill="none" stroke-width="2"/></svg>';
+}
+function showTabs(){ $('tabs').innerHTML=tabs.map(([k,n])=>'<button role="tab" aria-selected="'+(k===active)+'" class="'+(k===active?'active':'')+'" data-cat="'+k+'">'+n+'</button>').join('');$('tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.cat;showTabs();showProducts()})}
+function showProducts(){const list=products.filter(p=>active==='all'||p.cat===active);$('products').innerHTML=list.map(p=>'<button class="product '+(chosen[p.cat]?.id===p.id?'selected':'')+'" data-id="'+p.id+'" aria-pressed="'+(chosen[p.cat]?.id===p.id)+'"><div class="swatch" style="background:linear-gradient(140deg,#faf8f6,#ede8e3)">'+iconSVG(p)+'</div>'+(chosen[p.cat]?.id===p.id?'<span class="selected-mark">✓ 已選</span>':'')+'<div class="prod-body"><div class="prod-name">'+p.name+'</div><div class="prod-meta">'+p.meta+'</div><div class="prod-price">'+fmt(p.price)+'</div></div></button>').join('');$('products').querySelectorAll('button').forEach(b=>b.onclick=()=>{const p=products.find(x=>x.id===b.dataset.id);if(chosen[p.cat]?.id===p.id)delete chosen[p.cat];else chosen[p.cat]=p;showProducts();updateCart();redrawOutfit()})}
+function updateCart(){const items=Object.values(chosen),n=items.length,sub=items.reduce((s,p)=>s+p.price,0),rate=n>=4?.15:n===3?.1:n===2?.05:0,off=Math.round(sub*rate),reward=won&&n>=2?50:0;const total=sub-off-reward;
+ $('cartList').innerHTML=items.length?items.map(p=>'<div class="line"><span>'+p.name+'</span><strong>'+fmt(p.price)+'</strong></div>').join(''):'尚未選擇商品';
+ $('subtotal').textContent=fmt(sub);$('discount').textContent='－'+fmt(off);$('reward').textContent='－'+fmt(reward);$('total').textContent=fmt(total);$('discountLabel').textContent=rate?'組合優惠（'+Math.round(rate*100)+'% OFF）':'組合優惠';Array.from($('progress').children).forEach((x,i)=>x.classList.toggle('on',i<n));
+ return {items,n,sub,off,reward,total}}
+$('clear').onclick=()=>{chosen={};showProducts();updateCart();redrawOutfit()};
+$('copy').onclick=async()=>{const r=updateCart(),s=['STYLE QUEST 3D｜穿搭清單',...r.items.map(p=>'・'+p.name+'　'+fmt(p.price)),'原價：'+fmt(r.sub),'組合優惠：-'+fmt(r.off),'小遊戲獎勵：-'+fmt(r.reward),'優惠後總價：'+fmt(r.total),'（示範報價，非正式訂單）'].join('\n');try{await navigator.clipboard.writeText(s);$('copy').textContent='已複製清單 ✓'}catch{window.prompt('請複製清單',s)}setTimeout(()=>$('copy').textContent='複製穿搭清單與價格',1800)};
+function initGame(){const q=products[Math.floor(Math.random()*products.length)];$('question').textContent='「'+q.name+'」的價格是多少？';let options=[q.price];const others=products.filter(p=>p.price!==q.price).map(p=>p.price);while(options.length<4&&others.length){const i=Math.floor(Math.random()*others.length);options.push(others.splice(i,1)[0])}options.sort(()=>Math.random()-.5);$('answers').innerHTML=options.map(v=>'<button data-price="'+v+'">'+fmt(v)+'</button>').join('');$('answers').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(played)return;played=true;won=Number(b.dataset.price)===q.price;$('gameResult').textContent=won?'答對了！獲得 NT$50 試玩折抵，選滿 2 件即可使用。':'答案是 '+fmt(q.price)+'！這次沒有折抵，但還可以享有多件組合優惠。';$('answers').querySelectorAll('button').forEach(x=>x.disabled=true);b.style.background=won?'#e3f4e9':'#f9e8e8';updateCart()})}
+function resize(){const el=canvas.parentElement;const w=el.clientWidth,h=el.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+const ro=new ResizeObserver(resize);ro.observe(canvas.parentElement);resize();
+const views={front:0,sideview:Math.PI/2,back:Math.PI,reset:0};
+for(const id of Object.keys(views)){$(id).onclick=()=>{const dist=id==='reset'?8.8:camera.position.distanceTo(controls.target);const a=views[id];camera.position.set(Math.sin(a)*dist*.93,2.5,Math.cos(a)*dist*.93);controls.update();document.querySelectorAll('.camera button').forEach(b=>b.classList.toggle('active',b.id===id))}}
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}showTabs();showProducts();updateCart();initGame();animate();$('loading').classList.add('hidden');
+</script>
+<script>window.addEventListener('error',function(e){if(e.message&&/module|import|script|three/i.test(e.message)){const l=document.getElementById('loading');if(l){l.innerHTML='<div><strong>3D 模型載入失敗</strong><small>請確認網路連線，或更換瀏覽器重新開啟。</small></div>';l.classList.remove('hidden')}}})</script>
+</body></html>
